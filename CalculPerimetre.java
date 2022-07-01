@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
@@ -36,10 +37,13 @@ public class CalculPerimetre extends JPanel implements ActionListener{
         pancal.setLayout(new FlowLayout());
         btnCalPer = new JButton("Calcu de Perimetre");
         areaPer = new JTextArea(10, 20);
+        JScrollPane scroll = new JScrollPane (areaPer);
+
+        
         pancal.add(btnCalPer);
-        pancal.add(areaPer);
+        pancal.add(scroll);
         this.add(pancal, BorderLayout.SOUTH);
-        ((FlowLayout)pancal.getLayout()).setHgap(80);
+        ((FlowLayout)pancal.getLayout()).setHgap(160);
         btnCalPer.addActionListener(this);
         
         this.setBorder(new EmptyBorder(20, 20, 20, 20));

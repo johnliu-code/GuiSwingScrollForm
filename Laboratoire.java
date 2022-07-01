@@ -22,20 +22,20 @@ public class Laboratoire extends JFrame {
     CalculSurface calsur;
     Laboratoire(){
         this.setTitle("Calculator Graphic");
-        this.setSize(650, 650);
+        this.setSize(900, 760);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         
-        JPanel scrollPan = new JPanel();
-        scrollPan.setLayout(new BorderLayout());
-        this.add(new JScrollPane(scrollPan), BorderLayout.CENTER);
+        //JPanel scrollPan = new JPanel();
+        //scrollPan.setLayout(new BorderLayout());
+        //this.add(new JScrollPane(scrollPan), BorderLayout.CENTER);
         
         inputPan = new InputArea();
-        scrollPan.add(inputPan, BorderLayout.NORTH);
+        this.add(inputPan, BorderLayout.NORTH);
         calper = new CalculPerimetre ();
-        scrollPan.add(calper, BorderLayout.CENTER);
+        this.add(calper, BorderLayout.CENTER);
         calsur = new CalculSurface();
-        scrollPan.add(calsur, BorderLayout.SOUTH);
+        this.add(calsur, BorderLayout.SOUTH);
         
         this.setVisible(true);
     }    

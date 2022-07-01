@@ -24,9 +24,10 @@ import javax.swing.border.EmptyBorder;
 public class LoginFrame extends JFrame implements ActionListener {
     JTextField userField, passField;
     JButton btnLogin, btnRegister;
+    JLabel successMessage;
     LoginFrame(){
         this.setTitle("Login / Register");
-        this.setSize(400, 240);
+        this.setSize(400, 300);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         
@@ -38,6 +39,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         JLabel user = new JLabel("User");
         user.setBorder(new EmptyBorder(0, 0, 0, 36));
         userField = new JTextField(15);
+        userField.setPreferredSize(new Dimension(100, 30));
         panTop.add(user);
         panTop.add(userField);
         panTop.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -45,6 +47,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         JLabel pass = new JLabel("Password");
         pass.setBorder(new EmptyBorder(0, 0, 0, 10));
         passField = new JTextField(15);
+        passField.setPreferredSize(new Dimension(100, 30));
         panMiddle.add(pass);
         panMiddle.add(passField);
         
@@ -53,7 +56,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 
         panBottom.add(btnLogin);
         panBottom.add(btnRegister);
-        panBottom.setBorder(new EmptyBorder(20, 20, 20, 20));
+        panBottom.setBorder(new EmptyBorder(20, 20, 50, 20));
         panBottom.setLayout(new FlowLayout());
         ((FlowLayout)panBottom.getLayout()).setHgap(90);
         btnLogin.addActionListener(this);
@@ -62,14 +65,29 @@ public class LoginFrame extends JFrame implements ActionListener {
         this.add(panMiddle, BorderLayout.CENTER);
         this.add(panBottom, BorderLayout.SOUTH);
         
+        //Success message
+        successMessage = new JLabel("");
+        successMessage.setBorder(new EmptyBorder(20, 20, 20, 20));
+        panBottom.add(successMessage);
+        
+        
         this.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnLogin){ 
-            Laboratoire lab = new Laboratoire();
-            System.out.println("User " + userField.getText().toString()+ " Login success!!");
+            String username =  userField.getText();
+            String mypassword = passField.getText();
+            
+           if(username.equals("lab") && mypassword.equals("1234")){
+             Laboratoire lab = new Laboratoire();
+             System.out.println("User " + userField.getText().toString()+ " Login success!!");
+             successMessage.setText("Login success!!");
+           }
+           else
+               successMessage.setText("Wrong user or password! Please try: lab / 1234");
+               
         }
     }
 }

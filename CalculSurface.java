@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
@@ -36,10 +37,12 @@ public class CalculSurface extends JPanel implements ActionListener {
         pancal.setLayout(new FlowLayout());
         btnCalSur = new JButton("Calcu de Surface");
         areaSur = new JTextArea(10, 20);
+        JScrollPane scroll = new JScrollPane (areaSur);
+        
         pancal.add(btnCalSur);
-        pancal.add(areaSur);
+        pancal.add(scroll);
         this.add(pancal, BorderLayout.SOUTH);
-        ((FlowLayout)pancal.getLayout()).setHgap(80);
+        ((FlowLayout)pancal.getLayout()).setHgap(160);
         btnCalSur.addActionListener(this);
         
         this.setBorder(new EmptyBorder(20, 20, 20, 20));
