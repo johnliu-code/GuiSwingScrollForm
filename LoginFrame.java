@@ -8,11 +8,15 @@ package lab4jave;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -25,6 +29,9 @@ public class LoginFrame extends JFrame implements ActionListener {
     JTextField userField, passField;
     JButton btnLogin, btnRegister;
     JLabel successMessage;
+    public User user;
+    public ArrayList<User> users = new ArrayList<User>();
+   
     LoginFrame(){
         this.setTitle("Login / Register");
         this.setSize(400, 300);
@@ -60,6 +67,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         panBottom.setLayout(new FlowLayout());
         ((FlowLayout)panBottom.getLayout()).setHgap(90);
         btnLogin.addActionListener(this);
+        btnRegister.addActionListener(this);
         
         this.add(panTop, BorderLayout.NORTH);
         this.add(panMiddle, BorderLayout.CENTER);
@@ -79,7 +87,28 @@ public class LoginFrame extends JFrame implements ActionListener {
         if (e.getSource() == btnLogin){ 
             String username =  userField.getText();
             String mypassword = passField.getText();
-            
+
+            int finduser = 0;
+            for(User fuser: users){
+                if (fuser.GetUser().equals(username) && fuser.GetPassword().equals(mypassword))
+                    finduser = 1;
+            }
+            if (finduser == 1){
+                String message = "Login success!! Click OK to continue...";
+                JOptionPane.showMessageDialog(null, message, "Login information", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+                Laboratoire lab = new Laboratoire();
+            }
+            else {
+                userField.setText("");
+                passField.setText("");
+                String message = "Login failed, would you want to try again? Yes/No";
+                int ans = JOptionPane.showConfirmDialog(null, message, "Try again Yes/No", JOptionPane.YES_NO_CANCEL_OPTION);
+                if(ans == 1){
+                    this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+                }  
+            }
+           /*
            if(username.equals("lab") && mypassword.equals("1234")){
              Laboratoire lab = new Laboratoire();
              System.out.println("User " + userField.getText().toString()+ " Login success!!");
@@ -88,6 +117,16 @@ public class LoginFrame extends JFrame implements ActionListener {
            else
                successMessage.setText("Wrong user or password! Please try: lab / 1234");
                
+          */
+        }
+        
+        if (e.getSource() == btnRegister){
+            if (userField.getText() != null && passField.getText() != null){
+                user = new User(userField.getText(), passField.getText());
+                users.add(user);
+                
+                System.out.println("User register success!!");
+            }
         }
     }
 }
